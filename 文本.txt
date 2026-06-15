@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>聆霜 · 个人主页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #eef5fc;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", Helvetica, Arial, sans-serif;
+            color: #1d1c1f;
+            line-height: 1.42857;
+            -webkit-font-smoothing: antialiased;
+            animation: fadeIn 0.8s ease-out;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* 飘浮字符 - 深蓝色 */
+        .float-char {
+            position: fixed;
+            pointer-events: none;
+            z-index: 0;
+            font-weight: 400;
+            will-change: transform, opacity;
+            opacity: 0;
+        }
+
+        @keyframes bounceQ弹 {
+            0% { transform: translate(0,0) rotate(0deg) scale(0.5); opacity: 0; }
+            20% { opacity: 0.6; }
+            45% { transform: translate(20px,-30px) rotate(15deg) scale(1.3); opacity: 0.9; }
+            65% { transform: translate(-10px,-15px) rotate(-8deg) scale(0.9); opacity: 0.7; }
+            85% { transform: translate(10px,-5px) rotate(5deg) scale(1.1); opacity: 0.8; }
+            100% { transform: translate(0,0) rotate(0deg) scale(0.5); opacity: 0; }
+        }
+
+        @keyframes secretPop {
+            0% { transform: scale(0.3) rotate(-10deg); opacity: 0; }
+            35% { transform: scale(1.5) rotate(12deg); opacity: 0.9; }
+            65% { transform: scale(0.85) rotate(-3deg); opacity: 0.7; }
+            100% { transform: scale(1) rotate(0deg); opacity: 0; }
+        }
+
+        @keyframes wobbleZoom {
+            0% { transform: translateX(0) translateY(0) scale(0.6); opacity: 0.2; }
+            30% { transform: translateX(25px) translateY(-20px) scale(1.2); opacity: 0.8; }
+            55% { transform: translateX(-15px) translateY(-30px) scale(0.9); opacity: 0.7; }
+            80% { transform: translateX(10px) translateY(-8px) scale(1.1); opacity: 0.75; }
+            100% { transform: translateX(0) translateY(0) scale(0.6); opacity: 0.2; }
+        }
+
+        .container {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 120px 22px 80px;
+            cursor: pointer;
+            position: relative;
+            z-index: 10;
+            background: transparent;
+        }
+
+        .name {
+            font-size: 56px;
+            font-weight: 600;
+            letter-spacing: -0.005em;
+            margin-bottom: 8px;
+            color: #1d1c1f;
+        }
+
+        .sub-name {
+            font-size: 20px;
+            font-weight: 400;
+            color: #5e8ab5;
+            margin-bottom: 12px;
+        }
+
+        @media (max-width: 734px) {
+            .name { font-size: 40px; }
+            .sub-name { font-size: 18px; }
+        }
+
+        .tagline {
+            font-size: 24px;
+            font-weight: 400;
+            color: #6e8eb0;
+            letter-spacing: -0.003em;
+            margin-bottom: 48px;
+            max-width: 680px;
+        }
+
+        @media (max-width: 734px) {
+            .tagline { font-size: 20px; }
+        }
+
+        .image-area {
+            margin: 40px 0 48px;
+            max-width: 680px;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 60px;
+            object-fit: cover;
+            display: block;
+            margin-bottom: 24px;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            position: relative;
+            z-index: 12;
+        }
+        .avatar:hover {
+            transform: scale(1.03);
+            filter: brightness(1.02);
+        }
+        .avatar:active {
+            transform: scale(0.98);
+        }
+
+        .section {
+            margin-bottom: 48px;
+            max-width: 680px;
+            background: rgba(250, 252, 255, 0.7);
+            backdrop-filter: blur(2px);
+            border-radius: 24px;
+            padding: 8px 12px;
+            transition: all 0.2s;
+        }
+        .section:hover {
+            background: rgba(250, 252, 255, 0.85);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2c6280;
+            margin-bottom: 12px;
+            letter-spacing: -0.002em;
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-title:hover {
+            color: #1a4a6a;
+        }
+
+        .toggle-arrow {
+            display: inline-block;
+            transition: transform 0.2s ease;
+            font-size: 16px;
+        }
+        .toggle-arrow.open {
+            transform: rotate(90deg);
+        }
+
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .collapsible-content.open {
+            max-height: 300px;
+        }
+
+        .section-content {
+            font-size: 17px;
+            font-weight: 400;
+            color: #2c4c6e;
+            line-height: 1.47059;
+        }
+
+        .section-content p {
+            margin-bottom: 8px;
+        }
+
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 8px;
+        }
+
+        .tag {
+            font-size: 17px;
+            color: #3a6b92;
+            transition: all 0.2s ease;
+            cursor: default;
+        }
+        .tag:hover {
+            transform: translateY(-2px);
+            color: #2c6280;
+        }
+
+        a {
+            color: #2c7ab1;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        a:hover {
+            color: #1a5a7e;
+            text-decoration: underline;
+        }
+
+        hr {
+            margin: 48px 0 32px;
+            border: 0;
+            height: 1px;
+            background-color: #caddf0;
+            max-width: 680px;
+        }
+
+        .footer {
+            font-size: 12px;
+            color: #6e90ad;
+            max-width: 680px;
+            text-align: center;
+        }
+
+        .music-toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(44, 98, 128, 0.9);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-size: 14px;
+            z-index: 999;
+            animation: fadeOut 3s ease-in-out forwards;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+        @keyframes fadeOut {
+            0% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            70% { opacity: 1; }
+            100% { opacity: 0; transform: translateX(-50%) translateY(-10px); visibility: hidden; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="floatContainer"></div>
+
+<div class="container" id="mainContainer">
+    <div class="name">Telekinesis / 聆霜</div>
+    <div class="sub-name">伽蓝雨</div>
+    <div class="tagline">一个神秘人(^з^)-☆</div>
+
+    <div class="image-area">
+        <img class="avatar" src="https://s41.ax1x.com/2026/06/14/pmQcYRO.jpg" alt="kind">
+    </div>
+
+    <div class="section">
+        <div class="section-title">关于</div>
+        <div class="section-content">
+            <p>混迹于光遇、PJSK、东方、Vtuber圈。<br>
+            喜欢木之本樱和十六夜咲夜。<br>
+            IVL：MRC、FPX、Roblox爱好者。</p>
+            <p style="color: #8aacc9; font-size: 14px;">※ 排雷：NG / 众雷 / 过激 / rhrn</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">常驻坑</div>
+        <div class="tag-list">
+            <span class="tag">光遇</span>
+            <span class="tag">PJSK</span>
+            <span class="tag">東方Project</span>
+            <span class="tag">Vtuber</span>
+            <span class="tag">IVL</span>
+            <span class="tag">Roblox</span>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">当前状态</div>
+        <div class="section-content">
+            <p>🟢 学习中 · 偶尔摸鱼打游戏</p>
+            <p>🎮 最近沉迷：arg/2077/鸣潮</p>
+            <p>📖 个签：逾此长冬</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title" id="updateToggle" style="display: flex; align-items: center; gap: 8px;">
+            <span class="toggle-arrow" id="updateArrow">▶</span> 📅 最近更新
+        </div>
+        <div class="collapsible-content" id="updateContent">
+            <div class="section-content">
+                <p>▪ 2026.06.15 — 重构基础代码，优化页面结构<br>
+                ▪ 2026.06.14 — 添加淡蓝主题与音乐播放功能<br>
+                ▪ 2026.06.13 — 创建个人主页初版</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">联络</div>
+        <div class="section-content">
+            <p>📮 <a href="mailto:1950848276@qq.com">1950848276@qq.com</a></p>
+        </div>
+    </div>
+
+    <hr>
+    <div class="footer">
+        聆霜的小站
+    </div>
+</div>
+
+<script>
+    // 展开/收起逻辑
+    const updateToggle = document.getElementById('updateToggle');
+    const updateContent = document.getElementById('updateContent');
+    const updateArrow = document.getElementById('updateArrow');
+
+    if (updateToggle && updateContent && updateArrow) {
+        updateToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = updateContent.classList.contains('open');
+            if (isOpen) {
+                updateContent.classList.remove('open');
+                updateArrow.classList.remove('open');
+            } else {
+                updateContent.classList.add('open');
+                updateArrow.classList.add('open');
+            }
+        });
+    }
+
+    // 深蓝色星星和圆圈 - 18个
+    const chars = ['☆', '★', '○', '◯'];
+    const container = document.getElementById('floatContainer');
+    if (container) {
+        const charCount = 18;
+        for (let i = 0; i < charCount; i++) {
+            const el = document.createElement('div');
+            el.classList.add('float-char');
+            el.textContent = chars[Math.floor(Math.random() * chars.length)];
+            const size = Math.floor(Math.random() * 24 + 14);
+            el.style.fontSize = size + 'px';
+            const colors = ['#1E3A6F', '#2B4A7F', '#1A3363', '#254B7A', '#16325B'];
+            el.style.color = colors[Math.floor(Math.random() * colors.length)];
+            el.style.textShadow = '0 0 3px rgba(30, 58, 111, 0.3)';
+            el.style.left = Math.random() * 100 + '%';
+            el.style.top = Math.random() * 100 + '%';
+            el.style.opacity = Math.random() * 0.4 + 0.15;
+            const animType = Math.floor(Math.random() * 3);
+            let animName, duration;
+            if (animType === 0) {
+                animName = 'bounceQ弹';
+                duration = Math.random() * 5 + 7;
+            } else if (animType === 1) {
+                animName = 'secretPop';
+                duration = Math.random() * 4 + 6;
+            } else {
+                animName = 'wobbleZoom';
+                duration = Math.random() * 6 + 8;
+            }
+            el.style.animation = `${animName} ${duration}s infinite ease-in-out`;
+            el.style.animationDelay = Math.random() * 6 + 's';
+            container.appendChild(el);
+        }
+    }
+
+    // 音乐播放
+    let audio = null;
+    let hasStarted = false;
+    let toastShown = false;
+
+    function showToast() {
+        if (toastShown) return;
+        toastShown = true;
+        const toast = document.createElement('div');
+        toast.className = 'music-toast';
+        toast.textContent = '🎵 点击页面任意位置，播放坂本龍一《opus》';
+        document.body.appendChild(toast);
+        setTimeout(() => {
+            if (toast && toast.remove) toast.remove();
+        }, 3000);
+    }
+
+    function startMusic() {
+        if (hasStarted) return;
+        hasStarted = true;
+        if (!audio) {
+            audio = new Audio('https://music.163.com/song/media/outer/url?id=500014.mp3');
+            audio.loop = true;
+        }
+        audio.play().catch(e => {
+            console.log('播放失败', e);
+            hasStarted = false;
+        });
+    }
+
+    window.addEventListener('load', () => {
+        showToast();
+    });
+
+    const mainContainer = document.getElementById('mainContainer');
+    if (mainContainer) {
+        mainContainer.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') return;
+            if (updateToggle && updateToggle.contains(e.target)) return;
+            e.stopPropagation();
+            startMusic();
+        });
+    }
+</script>
+</body>
+</html>
