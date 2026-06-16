@@ -172,7 +172,7 @@
             transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .collapsible-content.open {
-            max-height: 300px;
+            max-height: 800px;
         }
 
         .section-content {
@@ -250,6 +250,15 @@
             70% { opacity: 1; }
             100% { opacity: 0; transform: translateX(-50%) translateY(-10px); visibility: hidden; }
         }
+
+        /* 让 giscus 评论区在浅色背景下更协调 */
+        .giscus {
+            margin-top: 10px;
+            width: 100%;
+        }
+        .giscus-frame {
+            width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -302,7 +311,8 @@
         </div>
         <div class="collapsible-content" id="updateContent">
             <div class="section-content">
-                <p>▪ 2026.06.15 — 重构基础代码，优化页面结构<br>
+                <p>▪ 2026.06.16 — 新增留言板模块（Giscus评论区）<br>
+                ▪ 2026.06.15 — 重构基础代码，优化页面结构<br>
                 ▪ 2026.06.14 — 添加淡蓝主题与音乐播放功能<br>
                 ▪ 2026.06.13 — 创建个人主页初版</p>
             </div>
@@ -316,14 +326,43 @@
         </div>
     </div>
 
+    <!-- ===== 留言板模块（默认折叠） ===== -->
+    <div class="section">
+        <div class="section-title" id="commentToggle" style="display: flex; align-items: center; gap: 8px;">
+            <span class="toggle-arrow" id="commentArrow">▶</span> 💬 留言板
+        </div>
+        <div class="collapsible-content" id="commentContent">
+            <div class="section-content">
+                <div class="giscus" style="margin-top: 8px;"></div>
+            </div>
+        </div>
+    </div>
+
     <hr>
     <div class="footer">
         聆霜的小站
     </div>
 </div>
 
+<!-- ===== Giscus 评论区脚本 ===== -->
+<script src="https://giscus.app/client.js"
+        data-repo="Chirusaki/Chirusaki.github.io"
+        data-repo-id="R_kgDOS7Tvzg"
+        data-category="General"
+        data-category-id="DIC_kwDOS7Tvzs4C_Q8L"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+</script>
+
 <script>
-    // 展开/收起逻辑
+    // ===== 展开/收起：最近更新 =====
     const updateToggle = document.getElementById('updateToggle');
     const updateContent = document.getElementById('updateContent');
     const updateArrow = document.getElementById('updateArrow');
@@ -342,7 +381,26 @@
         });
     }
 
-    // 深蓝色星星和圆圈 - 18个
+    // ===== 展开/收起：留言板 =====
+    const commentToggle = document.getElementById('commentToggle');
+    const commentContent = document.getElementById('commentContent');
+    const commentArrow = document.getElementById('commentArrow');
+
+    if (commentToggle && commentContent && commentArrow) {
+        commentToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = commentContent.classList.contains('open');
+            if (isOpen) {
+                commentContent.classList.remove('open');
+                commentArrow.classList.remove('open');
+            } else {
+                commentContent.classList.add('open');
+                commentArrow.classList.add('open');
+            }
+        });
+    }
+
+    // ===== 深蓝色星星和圆圈 - 18个 =====
     const chars = ['☆', '★', '○', '◯'];
     const container = document.getElementById('floatContainer');
     if (container) {
@@ -377,7 +435,7 @@
         }
     }
 
-    // 音乐播放
+    // ===== 音乐播放 =====
     let audio = null;
     let hasStarted = false;
     let toastShown = false;
@@ -416,6 +474,7 @@
         mainContainer.addEventListener('click', (e) => {
             if (e.target.tagName === 'A') return;
             if (updateToggle && updateToggle.contains(e.target)) return;
+            if (commentToggle && commentToggle.contains(e.target)) return;
             e.stopPropagation();
             startMusic();
         });
