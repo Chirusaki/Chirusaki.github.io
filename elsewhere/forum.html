@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>别处 · 信号站</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #0f1420;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 2rem 1rem;
+            color: #b8c8dd;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 880px;
+            margin: 0 auto;
+        }
+
+        .forum-header {
+            border-bottom: 2px solid #1a2a40;
+            padding-bottom: 1.2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .forum-header h1 {
+            font-size: 20px;
+            color: #6a9ac9;
+            letter-spacing: 4px;
+            font-weight: 400;
+        }
+        .forum-header .signal {
+            font-size: 12px;
+            color: #3a5a7a;
+            letter-spacing: 2px;
+        }
+        .forum-header .signal span {
+            color: #5a8aaa;
+        }
+
+        .observer-bar {
+            background: #0d1524;
+            border: 1px solid #1a2a40;
+            padding: 10px 18px;
+            margin-bottom: 24px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 13px;
+            color: #4a7a9f;
+        }
+        .observer-bar .id {
+            color: #7aa9d9;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .post {
+            background: #141c2a;
+            border: 1px solid #1a2a40;
+            padding: 24px 22px;
+            margin-bottom: 28px;
+            border-radius: 4px;
+        }
+        .post-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 8px;
+            margin-bottom: 14px;
+            font-size: 13px;
+            color: #6a8aaa;
+            border-bottom: 1px solid #1a2a40;
+            padding-bottom: 12px;
+        }
+        .post-header .author {
+            color: #8ab0d9;
+            font-weight: bold;
+            font-size: 15px;
+        }
+        .post-header .meta {
+            color: #3a5a7a;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+        }
+        .post-title {
+            font-size: 20px;
+            color: #c8dbe9;
+            margin-bottom: 16px;
+            line-height: 1.4;
+            font-weight: 400;
+        }
+        .post-body {
+            color: #a8bccf;
+            font-size: 14px;
+            line-height: 1.8;
+            white-space: pre-wrap;
+        }
+
+        .replies {
+            margin-top: 18px;
+            padding-top: 16px;
+            border-top: 1px solid #1a2a40;
+        }
+        .reply {
+            padding: 12px 0;
+            border-bottom: 1px solid #0f1a28;
+            font-size: 13px;
+        }
+        .reply:last-child {
+            border-bottom: none;
+        }
+        .reply .r-author {
+            color: #7aa9d9;
+            font-weight: bold;
+        }
+        .reply .r-meta {
+            color: #3a5a7a;
+            font-size: 11px;
+            margin-left: 8px;
+        }
+        .reply .r-body {
+            color: #a0b8cf;
+            margin-top: 4px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            font-size: 13px;
+        }
+
+        .footer {
+            text-align: center;
+            color: #2a4a6f;
+            font-size: 12px;
+            padding: 30px 0 10px;
+            letter-spacing: 2px;
+            border-top: 1px solid #1a2a40;
+            margin-top: 20px;
+        }
+        .footer span {
+            color: #3a5a7a;
+        }
+
+        .back-link {
+            color: #4a7a9f;
+            text-decoration: none;
+            font-size: 13px;
+            letter-spacing: 1px;
+            border-bottom: 1px dotted #2a4a6a;
+        }
+        .back-link:hover {
+            color: #7aa9d9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="forum-header">
+        <h1>✦ 别处 · 信号站 ✦</h1>
+        <div class="signal">信号强度：<span>稳定</span> · 频道：EW-03</div>
+    </div>
+
+    <div class="observer-bar">
+        <span>▸ 当前观察者</span>
+        <span class="id" id="observerDisplay">未识别</span>
+    </div>
+
+    <!-- 主帖 -->
+    <div class="post">
+        <div class="post-header">
+            <span class="author">眠</span>
+            <span class="meta">IP属地：江苏 · 凌晨 03:47</span>
+        </div>
+        <div class="post-title">我可能遇到了一个不该存在的网站。现在我开始忘东西了。</div>
+        <div class="post-body">
+昨晚三点多，失眠。
+
+不是那种翻来覆去的失眠，是那种躺在床上，脑子里一直在回放一些旧事的失眠。我想起我奶奶。她走了三年了。以前她总哼一首歌哄我睡觉，调子很老，我甚至不知道那首歌叫什么名字。
+
+我打开手机，漫无目的地刷着。浏览器突然闪退了一下。我没在意，重新打开。
+
+但打开的页面不是我之前看的那个。
+
+是一个深蓝色的页面。没有地址栏。没有菜单。中间只有一行字，白色的，很细的字体：
+
+“你想找回什么？”
+
+我盯着那个光标闪了很久，然后打了一行字。是那首歌的歌词。我记得其中几句。
+
+回车。
+
+页面空白了几秒钟。
+
+然后它返回了一个结果。是一个音频文件。很短的音频，大概十几秒。
+
+我点开。
+
+是那个调子。
+
+有人哼的。一个女声，在轻轻地哼。像在哄一个孩子。她的声音不像我奶奶，太年轻了。但哼的调子完全一样。
+
+然后我听到了最后几秒。
+
+哼完之后，有一段短暂的空白。然后一个完全陌生的声音——一个低沉的、分不清男女的声音——说了几个字：
+
+“2024.03.27，已签收。”
+
+3月27日是我的生日。
+
+从那之后，我再也没遇到过那个网站。到今天，整整一周。
+
+但我开始忘东西。
+
+不是什么大事。一些小东西。比如我走到厨房，打开冰箱，然后忘了自己要拿什么。比如我早上看到我妈的脸，停了三秒，才想起她是我妈。
+
+三秒。不长。但我以前的反应时间不需要三秒。
+
+那三秒里，我在搜索她的名字。
+
+在脑子里搜索。像一个搜索引擎在加载。
+
+我觉得我签收了一样东西。但我不知道那是什么。
+
+有人吗？
+
+编辑于 04:12： 我把音频录下来了。你们听最后几秒。
+
+[音频附件：whisper_0317.mp3 — 时长 0:18]
+        </div>
+
+        <div class="replies">
+            <div class="reply">
+                <span class="r-author">夜航船24</span>
+                <span class="r-meta">IP属地：广东 · 2小时前</span>
+                <div class="r-body">
+你描述的页面UI和我三个月前遇到的完全一样。深蓝色背景，白色细字体，没有地址栏。我当时搜的是我弄丢的那只猫。它返回了一个地址。我去到那里，找到了一个纸箱，上面印着“EW-”开头的单号。箱子里有一个项圈，崭新的，但上面有它小时候咬过的牙印。那不可能存在。
+                </div>
+            </div>
+
+            <div class="reply">
+                <span class="r-author">信号衰减</span>
+                <span class="r-meta">IP属地：北京 · 1小时前</span>
+                <div class="r-body">
+“签收”意味着契约。它不是给你东西，它是确认一笔交易已经完成。它知道你的生日。它知道你在找什么。你取回了一段在物理上已经不存在的信息。为了维持某种我们还不理解的平衡，你必须留下一段等量的信息。而它定义“等量”的标准，可能不是文件大小。可能是情感强度。
+                </div>
+            </div>
+
+            <div class="reply">
+                <span class="r-author">灰木</span>
+                <span class="r-meta">IP属地：四川 · 45分钟前</span>
+                <div class="r-body">
+我没有搜我失去的东西。我搜了一样我没有失去的东西——我同事的婚戒。网站弹出了一行红字：“该物品仍被占用。您确定要以当前记忆交换吗？”我关掉了页面。但今天我发现，我手机相册里所有我同事的照片，她的脸都被替换成了一个我不认识的老人。
+                </div>
+            </div>
+
+            <div class="reply">
+                <span class="r-author">别开灯</span>
+                <span class="r-meta">IP属地：山东 · 20分钟前</span>
+                <div class="r-body">
+那个网站不是你找它的。从来都不是。它会回来找你。我认识一个人，他遇到了三次。第一次，他找回了一首歌。第二次，他找回了一张照片，但代价是一个下午的记忆。第三次，他搜了一个去世的人的名字。然后我开始记不清他的长相。后来我连他的名字都忘了。我朋友说，你说的这个人，从来就没存在过。我只记得他的网名——“零点搬运工”。
+                </div>
+            </div>
+
+            <div class="reply">
+                <span class="r-author">白噪音频</span>
+                <span class="r-meta">IP属地：上海 · 5分钟前</span>
+                <div class="r-body">
+我现在唯一敢做的事是把这个帖子收藏。因为如果有一天我也忘了什么重要的事——如果有一天我看着我妈的脸，要停三秒才能想起她是谁——至少这个帖子会提醒我。那个“已签收”，不是它签收了我的东西。是我签收了它的。
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 16px;">
+        <a href="/elsewhere/" class="back-link">← 返回入口</a>
+    </div>
+
+    <div class="footer">
+        <span>EW-</span> · 信号站 · 共 47 条回复 · 2026
+    </div>
+
+</div>
+
+<script>
+    const playerId = localStorage.getItem('ew_player_id');
+    const displayEl = document.getElementById('observerDisplay');
+    if (playerId) {
+        displayEl.textContent = playerId;
+        displayEl.style.color = '#8ab0d9';
+    } else {
+        displayEl.textContent = '未识别 · 请从入口进入';
+        displayEl.style.color = '#4a5a7a';
+    }
+</script>
+
+</body>
+</html>
